@@ -74,7 +74,7 @@ func VerifyJTW() func(http.Handler) http.Handler {
 				body, _ := json.Marshal(dat.Result)
 
 				_ = json.Unmarshal(body, &user)
-				ctx := context.WithValue(r.Context(), userID, user.Username)
+				ctx := context.WithValue(r.Context(), UserID, user.Username)
 				next.ServeHTTP(w, r.WithContext(ctx))
 				return
 			}
