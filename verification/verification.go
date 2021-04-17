@@ -13,7 +13,7 @@ import (
 type key string
 
 const (
-	userID key = "username"
+	UserID key = "username"
 )
 
 var (
