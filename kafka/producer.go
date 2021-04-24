@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 
 	"github.com/TomBowyerResearchProject/common/logger"
-	"github.com/confluentinc/confluent-kafka-go/kafka"
+	"gopkg.in/confluentinc/confluent-kafka-go.v1/kafka"
 )
 
 type ConfigProducer struct {
