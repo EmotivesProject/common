@@ -7,6 +7,10 @@ import (
 	"github.com/TomBowyerResearchProject/common/logger"
 )
 
+const (
+	healthzResponse = "Health OK"
+)
+
 type Response struct {
 	Result  interface{} `json:"result"`
 	Message []Message   `json:"message"`
@@ -15,6 +19,10 @@ type Response struct {
 type Message struct {
 	Message string `json:"message"`
 	Target  string `json:"target,omitempty"`
+}
+
+func Healthz(w http.ResponseWriter, r *http.Request) {
+	MessageResponseJSON(w, http.StatusOK, Message{Message: healthzResponse})
 }
 
 func ResultResponseJSON(w http.ResponseWriter, status int, result interface{}) {
