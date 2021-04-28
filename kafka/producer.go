@@ -2,6 +2,7 @@ package kafka
 
 import (
 	"encoding/json"
+	"time"
 
 	"github.com/TomBowyerResearchProject/common/logger"
 	"gopkg.in/confluentinc/confluent-kafka-go.v1/kafka"
@@ -17,19 +18,43 @@ var (
 	producerConfig ConfigProducer
 )
 
-func InitProducer(configProducer ConfigProducer) {
+func InitProducer(configProducer ConfigProducer) error {
+	var producer *kafka.Producer
+
+	var err error
+
 	producerConfig = configProducer
-	producer, err := kafka.NewProducer(&kafka.ConfigMap{
-		"bootstrap.servers": producerConfig.Server,
-	})
-	if err != nil {
+
+	for i := 0; i < retries; i++ {
+		producer, err = kafka.NewProducer(&kafka.ConfigMap{
+			"bootstrap.servers": producerConfig.Server,
+		})
+		if err == nil {
+			break
+		}
+
 		logger.Error(err)
+		time.Sleep(sleepTime * time.Second)
 	}
 
+	if err != nil {
+		return err
+	}
+
+	logger.Info("Connected to kafka")
+
 	kafkaProducer = producer
+
+	return nil
 }
 
-func ProduceEvent(event interface{}) {
+func ProduceEvent(event interface{}) error {
+	if kafkaProducer == nil {
+		if err := InitProducer(producerConfig); err != nil {
+			return err
+		}
+	}
+
 	stringEvent, err := json.Marshal(event)
 	if err != nil {
 		logger.Error(err)
@@ -37,13 +62,24 @@ func ProduceEvent(event interface{}) {
 
 	err = kafkaProducer.Produce(&kafka.Message{
 		TopicPartition: kafka.TopicPartition{Topic: &producerConfig.Topic, Partition: kafka.PartitionAny},
-		Value:          []byte(stringEvent)},
+		Value:          stringEvent,
+	},
 		nil,
 	)
 
 	if err != nil {
 		logger.Error(err)
-	} else {
-		logger.Infof("Sent event off to kafka %s", event)
+
+		return err
+	}
+
+	logger.Infof("Sent event off to kafka %s", event)
+
+	return nil
+}
+
+func CloseProducer() {
+	if kafkaProducer != nil {
+		kafkaProducer.Close()
 	}
 }

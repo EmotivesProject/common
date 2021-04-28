@@ -1,6 +1,5 @@
 github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/TomBowyerResearchProject/common v1.0.0 h1:fUe9NdA35Krgun7g6jctYv1H7oBzQiOE2E0QvvH5st0=
 github.com/TomBowyerResearchProject/common/logger v0.0.0-20210424011324-ad4adfbed85d h1:mpA1B6q+W8/4ykHxFoe8IQ2cFKLjT5F0kvvCbXA+8hI=
 github.com/TomBowyerResearchProject/common/logger v0.0.0-20210424011324-ad4adfbed85d/go.mod h1:HxQH9yD6ypU+/pHdDaPWsTezIqaqgvzBzeTuo+zwRLc=
 github.com/confluentinc/confluent-kafka-go v1.6.1 h1:YxM/UtMQ2vgJX2gIgeJFUD0ANQYTEvfo4Cs4qKUlmGE=
