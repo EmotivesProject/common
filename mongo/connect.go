@@ -2,6 +2,7 @@ package mongo
 
 import (
 	"context"
+	"errors"
 	"time"
 
 	"github.com/TomBowyerResearchProject/common/logger"
@@ -21,11 +22,12 @@ const (
 )
 
 var (
-	dbConfig Config
-	db       *mongo.Database
+	dbConfig           Config
+	db                 *mongo.Database
+	errFailedToConnect = errors.New("Failed to connect to db")
 )
 
-func Connect(config Config) {
+func Connect(config Config) error {
 	dbConfig = config
 
 	var client *mongo.Client
@@ -57,17 +59,21 @@ func Connect(config Config) {
 	}
 
 	if client == nil {
-		return
+		return errFailedToConnect
 	}
 
 	logger.Info("Connected to MongoDB!")
 
 	db = client.Database(config.DBName)
+
+	return nil
 }
 
 func GetDatabase() *mongo.Database {
 	if db == nil {
-		Connect(dbConfig)
+		if err := Connect(dbConfig); err != nil {
+			logger.Error(errFailedToConnect)
+		}
 	}
 
 	return db
