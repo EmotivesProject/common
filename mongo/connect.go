@@ -2,7 +2,6 @@ package mongo
 
 import (
 	"context"
-	"log"
 	"time"
 
 	"github.com/TomBowyerResearchProject/common/logger"
@@ -16,24 +15,49 @@ type Config struct {
 	DBName string
 }
 
+const (
+	retries   = 50
+	sleepTime = 5
+)
+
 var (
-	db *mongo.Database
+	dbConfig Config
+	db       *mongo.Database
 )
 
 func Connect(config Config) {
+	dbConfig = config
+
+	var client *mongo.Client
+
+	var err error
+
 	// Set client options
 	clientOptions := options.Client().ApplyURI(config.URI)
 
 	ctx, _ := context.WithTimeout(context.Background(), 1*time.Second)
 
-	client, err := mongo.Connect(ctx, clientOptions)
-	if err != nil {
-		log.Fatal(err)
+	for i := 0; i < retries; i++ {
+		client, err = mongo.Connect(ctx, clientOptions)
+		if err != nil {
+			time.Sleep(sleepTime * time.Second)
+
+			continue
+		}
+
+		err = client.Ping(ctx, nil)
+		if err != nil {
+			time.Sleep(sleepTime * time.Second)
+
+			continue
+		}
+
+		// If it gets here no errors has happened
+		break
 	}
 
-	err = client.Ping(ctx, nil)
-	if err != nil {
-		log.Fatal(err)
+	if client == nil {
+		return
 	}
 
 	logger.Info("Connected to MongoDB!")
@@ -42,5 +66,9 @@ func Connect(config Config) {
 }
 
 func GetDatabase() *mongo.Database {
+	if db == nil {
+		Connect(dbConfig)
+	}
+
 	return db
 }
