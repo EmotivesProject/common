@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"fmt"
 	"os"
 
 	"go.uber.org/zap"
@@ -8,8 +9,9 @@ import (
 )
 
 var (
-	Logger      *zap.Logger
-	SugarLogger *zap.SugaredLogger
+	myLogger      *zap.Logger
+	mySugarLogger *zap.SugaredLogger
+	serviceName   string
 )
 
 func InitLogger(name string) {
@@ -19,19 +21,36 @@ func InitLogger(name string) {
 	encoderCfg.TimeKey = "timestamp"
 	encoderCfg.EncodeTime = zapcore.ISO8601TimeEncoder
 
-	Logger = zap.New(zapcore.NewCore(
+	myLogger = zap.New(zapcore.NewCore(
 		zapcore.NewJSONEncoder(encoderCfg),
 		zapcore.Lock(os.Stdout),
 		atom,
 	))
 
-	defer Logger.Sync()
+	defer myLogger.Sync()
 
-	SugarLogger = Logger.Sugar()
+	mySugarLogger = myLogger.Sugar()
 
 	atom.SetLevel(zap.InfoLevel)
 
-	Logger = Logger.Named(name)
+	serviceName = name
 
-	Logger.Info("Created Logger")
+	Info("Created Logger")
+}
+
+func Info(message string) {
+	myLogger.Info(message, zap.String("service", serviceName))
+}
+
+func Infof(format string, v ...interface{}) {
+	message := fmt.Sprintf(format, v...)
+	myLogger.Info(message, zap.String("service", serviceName))
+}
+
+func Error(err error) {
+	myLogger.Error(err.Error(), zap.String("service", serviceName))
+}
+
+func Fatal(err error) {
+	myLogger.Fatal(err.Error(), zap.String("service", serviceName))
 }
