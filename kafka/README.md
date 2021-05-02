@@ -1,1 +1,0 @@
-kafka common stuff
