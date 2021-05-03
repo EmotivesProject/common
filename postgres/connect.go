@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/TomBowyerResearchProject/common/logger"
-	"github.com/jackc/pgx/v4"
+	"github.com/jackc/pgx/v4/pgxpool"
 )
 
 type Config struct {
@@ -20,19 +20,19 @@ const (
 
 var (
 	dbConfig           Config
-	db                 *pgx.Conn
+	db                 *pgxpool.Pool
 	errFailedToConnect = errors.New("Failed to connect to db")
 )
 
 func Connect(config Config) error {
 	dbConfig = config
 
-	var conn *pgx.Conn
+	var pool *pgxpool.Pool
 
 	var err error
 
 	for i := 0; i < retries; i++ {
-		conn, err = pgx.Connect(context.Background(), config.URI)
+		pool, err = pgxpool.Connect(context.Background(), config.URI)
 		if err != nil {
 			logger.Error(err)
 			time.Sleep(sleepTime * time.Second)
@@ -49,12 +49,12 @@ func Connect(config Config) error {
 
 	logger.Info("Successfully connected to the database")
 
-	db = conn
+	db = pool
 
 	return nil
 }
 
-func GetDatabase() *pgx.Conn {
+func GetDatabase() *pgxpool.Pool {
 	if db == nil {
 		if err := Connect(dbConfig); err != nil {
 			logger.Error(errFailedToConnect)
@@ -62,4 +62,10 @@ func GetDatabase() *pgx.Conn {
 	}
 
 	return db
+}
+
+func CloseDatabase() {
+	if db != nil {
+		db.Close()
+	}
 }
