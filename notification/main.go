@@ -13,7 +13,7 @@ type Notification struct {
 	Link     string `json:"link"`
 }
 
-func SendEvent(url string, notif Notification) error {
+func SendEvent(url, authSecret string, notif Notification) error {
 	bodyBytes, err := json.Marshal(notif)
 	if err != nil {
 		return err
@@ -25,6 +25,7 @@ func SendEvent(url string, notif Notification) error {
 	}
 
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", authSecret)
 
 	client := &http.Client{}
 
