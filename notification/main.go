@@ -10,14 +10,16 @@ import (
 )
 
 type Notification struct {
-	ID        primitive.ObjectID `bson:"_id" json:"id,omitempty"`
-	Username  string             `bson:"username" json:"username"`
-	Title     string             `bson:"title" json:"title"`
-	Message   string             `bson:"message" json:"message"`
-	Link      string             `bson:"link" json:"link"`
-	PostID    *int               `bson:"post_id,omitempty" json:"post_id,omitempty"`
-	CreatedAt time.Time          `bson:"created_at" json:"created_at"`
-	Seen      bool               `bson:"seen" json:"seen"`
+	ID         primitive.ObjectID `bson:"_id" json:"id,omitempty"`
+	Username   string             `bson:"username" json:"username"`
+	Type       string             `bson:"type" json:"type"`
+	Title      string             `bson:"title" json:"title"`
+	Message    string             `bson:"message" json:"message"`
+	Link       string             `bson:"link" json:"link"`
+	PostID     *int               `bson:"post_id,omitempty" json:"post_id,omitempty"`
+	UsernameTo *string            `bson:"username_to,omitempty" json:"username_to,omitempty"`
+	CreatedAt  time.Time          `bson:"created_at" json:"created_at"`
+	Seen       bool               `bson:"seen" json:"seen"`
 }
 
 func SendEvent(url, authSecret string, notif Notification) error {
