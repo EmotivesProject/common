@@ -108,7 +108,7 @@ func CreateNewUser(t *testing.T, url string) string {
 		log.Fatal("Failed to parse")
 	}
 
-	return resultMap["token"].(string)
+	return fmt.Sprintf("Bearer %s", resultMap["token"].(string))
 }
 
 func RandString(n int) string {
