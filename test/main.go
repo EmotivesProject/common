@@ -11,6 +11,7 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/TomBowyerResearchProject/common/response"
 	"github.com/stretchr/testify/assert"
@@ -113,6 +114,8 @@ func CreateNewUser(t *testing.T, url string) string {
 }
 
 func RandString(n int) string {
+	rand.Seed(time.Now().Unix())
+
 	b := make([]byte, n)
 	for i := range b {
 		// nolint:gosec
