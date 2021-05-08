@@ -9,6 +9,12 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+const (
+	Like    = "like"
+	Comment = "comment"
+	Message = "message"
+)
+
 type Notification struct {
 	ID         primitive.ObjectID `bson:"_id" json:"id,omitempty"`
 	Username   string             `bson:"username" json:"username"`
