@@ -4,14 +4,20 @@ import (
 	"bytes"
 	"encoding/json"
 	"net/http"
+	"time"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type Notification struct {
-	Username string `json:"username"`
-	Title    string `json:"title"`
-	Message  string `json:"message"`
-	Link     string `json:"link"`
-	PostID   *int   `json:"post_id,omitempty"`
+	ID        primitive.ObjectID `bson:"_id" json:"id,omitempty"`
+	Username  string             `bson:"username" json:"username"`
+	Title     string             `bson:"title" json:"title"`
+	Message   string             `bson:"message" json:"message"`
+	Link      string             `bson:"link" json:"link"`
+	PostID    *int               `bson:"post_id,omitempty" json:"post_id,omitempty"`
+	CreatedAt time.Time          `bson:"created_at" json:"created_at"`
+	Seen      bool               `bson:"seen" json:"seen"`
 }
 
 func SendEvent(url, authSecret string, notif Notification) error {
