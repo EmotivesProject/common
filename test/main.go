@@ -74,6 +74,7 @@ func CompleteTestRequest(t *testing.T, r *http.Request) (*http.Response, map[str
 
 func CreateNewUser(t *testing.T, url string) string {
 	randomUsername := RandString(randomUsernameLength)
+	fmt.Printf("Creating user %s", randomUsername)
 	requestBody := strings.NewReader(
 		fmt.Sprintf(
 			"{\"username\": \"%s\", \"name\": \"imtom\", \"password\": \"test123\", \"secret\": \"qutCreate\" }",
