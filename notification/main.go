@@ -11,7 +11,7 @@ type Notification struct {
 	Title    string `json:"title"`
 	Message  string `json:"message"`
 	Link     string `json:"link"`
-	PostID   int    `json:"post_id,omitempty"`
+	PostID   *int   `json:"post_id,omitempty"`
 }
 
 func SendEvent(url, authSecret string, notif Notification) error {
