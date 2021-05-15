@@ -73,7 +73,7 @@ func CompleteTestRequest(t *testing.T, r *http.Request) (*http.Response, map[str
 	return resp, resultMap, responseObj.Message
 }
 
-func CreateNewUser(t *testing.T, url string) string {
+func CreateNewUser(t *testing.T, url string) (string, string) {
 	randomUsername := RandString(randomUsernameLength)
 	fmt.Printf("Creating user %s\n", randomUsername)
 	requestBody := strings.NewReader(
@@ -110,7 +110,9 @@ func CreateNewUser(t *testing.T, url string) string {
 		log.Fatal("Failed to parse")
 	}
 
-	return fmt.Sprintf("Bearer %s", resultMap["token"].(string))
+	token := fmt.Sprintf("Bearer %s", resultMap["token"].(string))
+
+	return randomUsername, token
 }
 
 func RandString(n int) string {
