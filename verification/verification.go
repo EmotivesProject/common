@@ -46,15 +46,17 @@ func VerifyJTW() func(http.Handler) http.Handler {
 				response.MessageResponseJSON(w, http.StatusBadRequest, response.Message{
 					Message: err.Error(),
 				})
+
 				return
 			}
 
 			req.Header.Add("Authorization", header)
 			resp, err := client.Do(req)
 			if err != nil {
-				response.MessageResponseJSON(w, http.StatusBadRequest, response.Message{
+				response.MessageResponseJSON(w, http.StatusUnauthorized, response.Message{
 					Message: err.Error(),
 				})
+
 				return
 			}
 			defer resp.Body.Close()
@@ -76,6 +78,7 @@ func VerifyJTW() func(http.Handler) http.Handler {
 				_ = json.Unmarshal(body, &user)
 				ctx := context.WithValue(r.Context(), UserID, user.Username)
 				next.ServeHTTP(w, r.WithContext(ctx))
+
 				return
 			}
 
