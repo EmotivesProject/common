@@ -78,3 +78,11 @@ func GetDatabase() *mongo.Database {
 
 	return db
 }
+
+func CloseDatabase() *mongo.Database {
+	if db == nil {
+		_ = db.Client().Disconnect(context.Background())
+	}
+
+	return db
+}
