@@ -22,35 +22,41 @@ type Message struct {
 }
 
 func Healthz(w http.ResponseWriter, r *http.Request) {
-	MessageResponseJSON(w, http.StatusOK, Message{Message: healthzResponse})
+	MessageResponseJSON(w, false, http.StatusOK, Message{Message: healthzResponse})
 }
 
-func ResultResponseJSON(w http.ResponseWriter, status int, result interface{}) {
+func ResultResponseJSON(w http.ResponseWriter, cache bool, status int, result interface{}) {
 	response := Response{
 		Result: result,
 	}
 
-	responseJSON(w, status, response)
+	responseJSON(w, cache, status, response)
 }
 
-func MessageResponseJSON(w http.ResponseWriter, status int, message Message) {
+func MessageResponseJSON(w http.ResponseWriter, cache bool, status int, message Message) {
 	response := Response{
 		Message: []Message{message},
 	}
 
-	responseJSON(w, status, response)
+	responseJSON(w, cache, status, response)
 }
 
-func responseJSON(w http.ResponseWriter, status int, response interface{}) {
+func responseJSON(w http.ResponseWriter, cache bool, status int, response interface{}) {
 	payload, err := json.Marshal(response)
 	if err != nil {
 		logger.Error(err)
+
 		return
 	}
+
 	logger.Infof("Sending response %v", response)
 
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Cache-Control", "no-cache")
+
+	if !cache {
+		w.Header().Set("Cache-Control", "no-cache")
+	}
+
 	w.WriteHeader(status)
 	_, err = w.Write(payload)
 
