@@ -28,15 +28,15 @@ type Notification struct {
 	Seen       bool               `bson:"seen" json:"seen"`
 }
 
-func SendEvent(url, authSecret string, notif Notification) error {
+func SendEvent(url, authSecret string, notif Notification) (int, error) {
 	bodyBytes, err := json.Marshal(notif)
 	if err != nil {
-		return err
+		return http.StatusUnprocessableEntity, err
 	}
 
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(bodyBytes))
 	if err != nil {
-		return err
+		return http.StatusInternalServerError, err
 	}
 
 	req.Header.Set("Content-Type", "application/json")
@@ -46,8 +46,8 @@ func SendEvent(url, authSecret string, notif Notification) error {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return err
+		return resp.StatusCode, err
 	}
 
-	return resp.Body.Close()
+	return resp.StatusCode, resp.Body.Close()
 }
