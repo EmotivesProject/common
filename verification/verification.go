@@ -43,7 +43,7 @@ func VerifyJTW() func(http.Handler) http.Handler {
 
 			req, err := http.NewRequest("GET", verificationConfig.VerificationURL, nil)
 			if err != nil {
-				response.MessageResponseJSON(w, false, http.StatusBadRequest, response.Message{
+				response.MessageResponseJSON(w, false, http.StatusInternalServerError, response.Message{
 					Message: err.Error(),
 				})
 
@@ -53,7 +53,7 @@ func VerifyJTW() func(http.Handler) http.Handler {
 			req.Header.Add("Authorization", header)
 			resp, err := client.Do(req)
 			if err != nil {
-				response.MessageResponseJSON(w, false, http.StatusUnauthorized, response.Message{
+				response.MessageResponseJSON(w, false, http.StatusInternalServerError, response.Message{
 					Message: err.Error(),
 				})
 
@@ -64,7 +64,7 @@ func VerifyJTW() func(http.Handler) http.Handler {
 			if resp.StatusCode == http.StatusOK {
 				bodyBytes, err := ioutil.ReadAll(resp.Body)
 				if err != nil {
-					response.MessageResponseJSON(w, false, http.StatusBadRequest, response.Message{
+					response.MessageResponseJSON(w, false, http.StatusInternalServerError, response.Message{
 						Message: err.Error(),
 					})
 
@@ -83,7 +83,7 @@ func VerifyJTW() func(http.Handler) http.Handler {
 				return
 			}
 
-			response.MessageResponseJSON(w, false, http.StatusBadRequest, response.Message{
+			response.MessageResponseJSON(w, false, http.StatusUnauthorized, response.Message{
 				Message: errUnauthorised.Error(),
 			})
 		})
