@@ -56,17 +56,10 @@ func SetEx(ctx context.Context, key string, value interface{}, timeout time.Dura
 	return db.Set(ctx, fullKey, data, timeout).Err()
 }
 
-func Get(ctx context.Context, key string, model interface{}) (interface{}, error) {
+func Get(ctx context.Context, key string) (interface{}, error) {
 	fullKey := fmt.Sprintf("%s.%s", prefix, key)
 
-	result, err := db.Get(ctx, fullKey).Result()
-	if err != nil {
-		return nil, err
-	}
-
-	err = json.Unmarshal([]byte(result), &model)
-
-	return model, err
+	return db.Get(ctx, fullKey).Result()
 }
 
 func Down() {
