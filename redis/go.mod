@@ -1,4 +1,4 @@
-module redis
+module github.com/TomBowyerResearchProject/common/redis
 
 go 1.13
 
