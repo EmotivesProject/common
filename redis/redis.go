@@ -56,7 +56,7 @@ func SetEx(ctx context.Context, key string, value interface{}, timeout time.Dura
 	return db.Set(ctx, fullKey, data, timeout).Err()
 }
 
-func Get(ctx context.Context, key string) (interface{}, error) {
+func Get(ctx context.Context, key string) (string, error) {
 	fullKey := fmt.Sprintf("%s.%s", prefix, key)
 
 	return db.Get(ctx, fullKey).Result()
