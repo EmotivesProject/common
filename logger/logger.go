@@ -13,7 +13,7 @@ var (
 	serviceName string
 )
 
-func InitLogger(name string, eConfig *EmailConfig) {
+func InitLogger(name string, eConfig EmailConfig) {
 	emailConfig = eConfig
 
 	atom := zap.NewAtomicLevel()

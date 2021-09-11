@@ -18,10 +18,10 @@ const (
 	gmailPort = 587
 )
 
-var emailConfig *EmailConfig
+var emailConfig EmailConfig
 
 func EmailError(messageString, service string) {
-	if emailConfig == nil {
+	if emailConfig.From == "" || emailConfig.Password == "" {
 		return
 	}
 
