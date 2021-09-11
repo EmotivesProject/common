@@ -9,12 +9,13 @@ import (
 )
 
 var (
-	myLogger      *zap.Logger
-	mySugarLogger *zap.SugaredLogger
-	serviceName   string
+	myLogger    *zap.Logger
+	serviceName string
 )
 
-func InitLogger(name string) {
+func InitLogger(name string, eConfig *EmailConfig) {
+	emailConfig = eConfig
+
 	atom := zap.NewAtomicLevel()
 
 	encoderCfg := zap.NewProductionEncoderConfig()
@@ -28,8 +29,6 @@ func InitLogger(name string) {
 	))
 
 	defer myLogger.Sync()
-
-	mySugarLogger = myLogger.Sugar()
 
 	atom.SetLevel(zap.InfoLevel)
 
@@ -48,9 +47,13 @@ func Infof(format string, v ...interface{}) {
 }
 
 func Error(err error) {
+	go EmailError(err.Error(), serviceName)
+
 	myLogger.Error(err.Error(), zap.String("service", serviceName))
 }
 
 func Fatal(err error) {
+	go EmailError(err.Error(), serviceName)
+
 	myLogger.Fatal(err.Error(), zap.String("service", serviceName))
 }
