@@ -28,7 +28,7 @@ func SimpleMiddleware() func(http.Handler) http.Handler {
 			origin := r.Header.Get("Origin")
 			if index := stringInSlice(origin, splitAllowedOrigins); index != -1 {
 				w.Header().Set("Access-Control-Allow-Origin", splitAllowedOrigins[index])
-			} else if origin != "" {
+			} else {
 				w.Header().Set("Access-Control-Allow-Origin", splitAllowedOrigins[0])
 			}
 
