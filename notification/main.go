@@ -5,8 +5,6 @@ import (
 	"encoding/json"
 	"net/http"
 	"time"
-
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 const (
@@ -16,16 +14,16 @@ const (
 )
 
 type Notification struct {
-	ID         primitive.ObjectID `bson:"_id" json:"id,omitempty"`
-	Username   string             `bson:"username" json:"username"`
-	Type       string             `bson:"type" json:"type"`
-	Title      string             `bson:"title" json:"title"`
-	Message    string             `bson:"message" json:"message"`
-	Link       string             `bson:"link" json:"link"`
-	PostID     *int               `bson:"post_id,omitempty" json:"post_id,omitempty"`
-	UsernameTo *string            `bson:"username_to,omitempty" json:"username_to,omitempty"`
-	CreatedAt  time.Time          `bson:"created_at" json:"created_at"`
-	Seen       bool               `bson:"seen" json:"seen"`
+	ID         int       `json:"id,omitempty"`
+	Username   string    `json:"username"`
+	Type       string    `json:"type"`
+	Title      string    `json:"title"`
+	Message    string    `json:"message"`
+	Link       string    `json:"link"`
+	PostID     *int      `json:"post_id,omitempty"`
+	UsernameTo *string   `json:"username_to,omitempty"`
+	CreatedAt  time.Time `json:"created_at"`
+	Seen       bool      `json:"seen"`
 }
 
 func SendEvent(url, authSecret string, notif Notification) (int, error) {
