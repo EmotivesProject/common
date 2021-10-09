@@ -13,7 +13,8 @@ import (
 type key string
 
 const (
-	UserID key = "username"
+	UserID    key = "username"
+	UserGroup key = "user_group"
 )
 
 var (
@@ -22,7 +23,8 @@ var (
 )
 
 type VerificationUser struct {
-	Username string `json:"username"`
+	Username  string `json:"username"`
+	UserGroup string `json:"user_group"`
 }
 
 type VerificationConfig struct {
@@ -77,7 +79,10 @@ func VerifyJTW() func(http.Handler) http.Handler {
 				body, _ := json.Marshal(dat.Result)
 
 				_ = json.Unmarshal(body, &user)
+
 				ctx := context.WithValue(r.Context(), UserID, user.Username)
+				ctx = context.WithValue(ctx, UserGroup, user.UserGroup)
+
 				next.ServeHTTP(w, r.WithContext(ctx))
 
 				return
