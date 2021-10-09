@@ -78,7 +78,7 @@ func CreateNewUser(t *testing.T, url string) (string, string) {
 	fmt.Printf("Creating user %s\n", randomUsername)
 	requestBody := strings.NewReader(
 		fmt.Sprintf(
-			"{\"username\": \"%s\", \"name\": \"imtom\", \"password\": \"test123\", \"secret\": \"qutCreate\", \"user_group\": \"qut\" }",
+			"{\"username\": \"%s\", \"name\": \"imtom\", \"password\": \"test123\", \"secret\": \"test\", \"user_group\": \"test\" }",
 			randomUsername,
 		),
 	)
