@@ -49,7 +49,7 @@ func responseJSON(w http.ResponseWriter, cache bool, status int, response interf
 		return
 	}
 
-	logger.Infof("Sending response %v", payload)
+	logger.Infof("Sending response %v", string(payload))
 
 	w.Header().Set("Content-Type", "application/json")
 
