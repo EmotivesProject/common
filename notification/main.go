@@ -49,3 +49,22 @@ func SendEvent(url, authSecret string, notif Notification) (int, error) {
 
 	return resp.StatusCode, resp.Body.Close()
 }
+
+func SendDelete(url, authSecret string) (int, error) {
+	req, err := http.NewRequest("DELETE", url, nil)
+	if err != nil {
+		return http.StatusInternalServerError, err
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", authSecret)
+
+	client := &http.Client{}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return resp.StatusCode, err
+	}
+
+	return resp.StatusCode, resp.Body.Close()
+}
