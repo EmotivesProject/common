@@ -63,7 +63,7 @@ func SendDelete(url, authSecret string) (int, error) {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return resp.StatusCode, err
+		return http.StatusInternalServerError, err
 	}
 
 	return resp.StatusCode, resp.Body.Close()
