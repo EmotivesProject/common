@@ -1,10 +1,9 @@
 github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/TomBowyerResearchProject/common/logger v0.0.0-20210415085024-5081280e07de/go.mod h1:HxQH9yD6ypU+/pHdDaPWsTezIqaqgvzBzeTuo+zwRLc=
+github.com/EmotivesProject/common/response v0.0.0-20211029211701-bccb2eac59d1 h1:zQsoCtNfSAUDi1uJe58WDLxEE7c0ambcuruXCdYVdGI=
+github.com/EmotivesProject/common/response v0.0.0-20211029211701-bccb2eac59d1/go.mod h1:OF2L+6tKig95Wf9jx7ShdfEqJJ8xq+TSh7CPIZ7Rtgk=
 github.com/TomBowyerResearchProject/common/logger v0.0.0-20210709105607-257260c9085d h1:AFAzQ62wAeGpoKcWVxHAO8Ov0qYBD1oz7cxT5n/CTU8=
 github.com/TomBowyerResearchProject/common/logger v0.0.0-20210709105607-257260c9085d/go.mod h1:HxQH9yD6ypU+/pHdDaPWsTezIqaqgvzBzeTuo+zwRLc=
-github.com/TomBowyerResearchProject/common/response v0.0.0-20210709105607-257260c9085d h1:HKSBTx5TqPHay30Yij936YMRbk+1kddGVqW6Ro5JPes=
-github.com/TomBowyerResearchProject/common/response v0.0.0-20210709105607-257260c9085d/go.mod h1:fib988ehDtUcBwwwNhHWjQSSruMEEMCLb5QZnfyWU84=
 github.com/benbjohnson/clock v1.1.0 h1:Q92kusRqC1XV2MjkWETPvjJVqKetz1OzxZB7mHJLju8=
 github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

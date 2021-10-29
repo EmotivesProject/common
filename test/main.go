@@ -13,7 +13,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/TomBowyerResearchProject/common/response"
+	"github.com/EmotivesProject/common/response"
 	"github.com/stretchr/testify/assert"
 )
 

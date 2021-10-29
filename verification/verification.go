@@ -7,7 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/TomBowyerResearchProject/common/response"
+	"github.com/EmotivesProject/common/response"
 )
 
 type key string

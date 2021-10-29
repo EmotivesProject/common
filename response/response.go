@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/TomBowyerResearchProject/common/logger"
+	"github.com/EmotivesProject/common/logger"
 )
 
 const (

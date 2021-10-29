@@ -5,7 +5,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/TomBowyerResearchProject/common/logger"
+	"github.com/EmotivesProject/common/logger"
 	"github.com/jackc/pgx/v4/pgxpool"
 )
 
