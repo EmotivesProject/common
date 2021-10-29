@@ -17,7 +17,7 @@ If you want to make a change in a specific go module, these are the steps.
     Fix null
    ```
 	That would be d9a3cbff66fe217a2964e77eb154b05c89f68a55
-4. Go back into the repo you wanted the change for. e.g. uacl/chatter/notif
+4. Go back into the repo you wanted the change for. e.g. uacl/chatter
 5. Install the latest change
    ```
    go get github.com/TomBowyerResearchProject/common/logger@d9a3cbff66fe217a2964e77eb154b05c89f68a55
