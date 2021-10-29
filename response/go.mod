@@ -1,4 +1,4 @@
-module github.com/TomBowyerResearchProject/common/response
+module github.com/EmotivesProject/common/response
 
 go 1.13
 

@@ -1,4 +1,4 @@
-module github.com/TomBowyerResearchProject/common/postgres
+module github.com/EmotivesProject/common/postgres
 
 go 1.13
 

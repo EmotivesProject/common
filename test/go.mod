@@ -1,4 +1,4 @@
-module github.com/TomBowyerResearchProject/common/test
+module github.com/EmotivesProject/common/test
 
 go 1.13
 

@@ -1,4 +1,4 @@
-module github.com/TomBowyerResearchProject/common/logger
+module github.com/EmotivesProject/common/logger
 
 go 1.16
 

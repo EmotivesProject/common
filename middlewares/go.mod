@@ -1,4 +1,4 @@
-module github.com/TomBowyerResearchProject/common/middlewares
+module github.com/EmotivesProject/common/middlewares
 
 go 1.13
 

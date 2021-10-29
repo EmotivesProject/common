@@ -1,4 +1,4 @@
-module github.com/TomBowyerResearchProject/common/redis
+module github.com/EmotivesProject/common/redis
 
 go 1.13
 

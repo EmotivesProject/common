@@ -20,14 +20,14 @@ If you want to make a change in a specific go module, these are the steps.
 4. Go back into the repo you wanted the change for. e.g. uacl/chatter
 5. Install the latest change
    ```
-   go get github.com/TomBowyerResearchProject/common/logger@d9a3cbff66fe217a2964e77eb154b05c89f68a55
+   go get github.com/EmotivesProject/common/logger@d9a3cbff66fe217a2964e77eb154b05c89f68a55
    ```
 ## Creating a new common module
 If you wanted to create a brand new common module, these are the steps
 1. Create a folder
 2. Initialize the go module with the github name
    ```
-   go mod init github.com/TomBowyerResearchProject/common/new
+   go mod init github.com/EmotivesProject/common/new
    ```
 3. Make changes and push to the main branch
 4. Optional. Install the new module in the relevant service

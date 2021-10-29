@@ -1,4 +1,4 @@
-module github.com/TomBowyerResearchProject/common/verification
+module github.com/EmotivesProject/common/verification
 
 go 1.13
 
